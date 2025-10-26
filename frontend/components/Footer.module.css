@@ -1,0 +1,13 @@
+.footer{background:#0a0f19;border-top:1px solid #151b2a;margin-top:4rem}
+.container{max-width:1120px;margin:0 auto;padding:2rem 1.25rem}
+.grid{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start}
+.logoRow{display:flex;align-items:center;gap:.6rem}
+.logoDot{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,#7c3aed,#22d3ee);box-shadow:0 0 14px #7c3aed}
+.brand{font-weight:800;color:#eaf2ff}
+.copy{color:#9aa3b2;margin-top:.4rem}
+.links{display:flex;gap:1rem;flex-wrap:wrap}
+.links a{color:#c9d2e3;text-decoration:none}
+.links a:hover{color:#fff}
+.line{height:1px;background:#151b2a;margin:1.5rem 0}
+.legal{color:#8d97a8;font-size:.9rem}
+@media (max-width: 720px){.grid{grid-template-columns:1fr}}

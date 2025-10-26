@@ -1,25 +1,22 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Stralixhost',
-  description: 'Full-stack web application built with modern technologies',
-  keywords: ['web app', 'full-stack', 'next.js', 'react'],
-  authors: [{ name: 'Stralixhost Team' }],
-  viewport: 'width=device-width, initial-scale=1',
+  title: 'Stralix • Cloud Hosting for Builders',
+  description: 'Premium web hosting, VPS, game servers, domains, and SSL — fast, secure, and scalable.',
+  themeColor: '#0ea5e9',
+  icons: { icon: '/icons/favicon.ico' },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <div id="root">
-          {children}
-        </div>
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
