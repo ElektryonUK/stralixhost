@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 import secrets
 
 from app.core.config import settings
+from app.core.audit import log_event
 from app.db.database import get_db
 from app.db.models import UserSession
 
@@ -59,7 +60,8 @@ async def refresh(request: Request, response: Response, db: AsyncSession = Depen
     )
     if not session_obj:
         raise HTTPException(status_code=401, detail='Invalid refresh')
-    # Rotate
+    
+    # Rotate tokens
     new_session = secrets.token_urlsafe(48)
     new_refresh = secrets.token_urlsafe(48)
     await db.execute(
@@ -73,6 +75,13 @@ async def refresh(request: Request, response: Response, db: AsyncSession = Depen
         )
     )
     await db.commit()
+    
+    # Log refresh event
+    ip = request.client.host if request.client else None
+    ua = request.headers.get('user-agent')
+    await log_event(db, user_id=str(session_obj.user_id), action='auth:refresh', 
+                   ip=ip, ua=ua, meta={'session_id': str(session_obj.id)})
+    
     set_auth_cookies(response, new_session, new_refresh)
     return { 'message': 'refreshed' }
 
@@ -80,12 +89,33 @@ async def refresh(request: Request, response: Response, db: AsyncSession = Depen
 async def logout(request: Request, response: Response, db: AsyncSession = Depends(get_db)):
     sess = request.cookies.get(COOKIE_SESSION)
     ref = request.cookies.get(COOKIE_REFRESH)
+    
+    user_id = None
     if sess or ref:
+        # Find user_id for audit log
+        if sess:
+            session_obj = await db.scalar(select(UserSession).where(UserSession.session_token == sess))
+            if session_obj:
+                user_id = str(session_obj.user_id)
+        elif ref:
+            session_obj = await db.scalar(select(UserSession).where(UserSession.refresh_token == ref))
+            if session_obj:
+                user_id = str(session_obj.user_id)
+        
+        # Invalidate sessions
         await db.execute(
             update(UserSession)
             .where((UserSession.session_token == sess) | (UserSession.refresh_token == ref))
             .values(is_active=False)
         )
         await db.commit()
+        
+        # Log logout
+        if user_id:
+            ip = request.client.host if request.client else None
+            ua = request.headers.get('user-agent')
+            await log_event(db, user_id=user_id, action='auth:logout', 
+                           ip=ip, ua=ua, meta={'method': 'cookie', 'tokens': [sess, ref]})
+    
     clear_auth_cookies(response)
     return { 'message': 'logged out' }
