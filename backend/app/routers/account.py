@@ -10,7 +10,8 @@ from passlib.context import CryptContext
 import pyotp
 
 from app.core.config import settings
-from app.core.security import get_db, get_current_user
+from app.core.security import get_current_user
+from app.db.database import get_db
 from app.db.models import User, UserSession, UserStatus
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -20,21 +21,18 @@ account = APIRouter(prefix="/account", tags=["account"])
 # Email utility
 def send_email(to: str, subject: str, body: str):
     msg = EmailMessage()
-    msg["From"] = f"{settings.__dict__.get('SMTP_FROM_NAME','Stralix')} <{settings.__dict__.get('SMTP_USER','no-reply@example.com')}>"
+    msg["From"] = f"{settings.SMTP_FROM_NAME} <{settings.SMTP_USER or 'no-reply@example.com'}>"
     msg["To"] = to
     msg["Subject"] = subject
     msg.set_content(body)
-    host = settings.__dict__.get('SMTP_HOST')
-    port = int(settings.__dict__.get('SMTP_PORT', 587))
-    user = settings.__dict__.get('SMTP_USER')
-    pwd = settings.__dict__.get('SMTP_PASSWORD')
-    use_tls = str(settings.__dict__.get('SMTP_TLS','true')).lower() == 'true'
-    if not host or not user or not pwd:
+    
+    if not settings.SMTP_HOST or not settings.SMTP_USER or not settings.SMTP_PASSWORD:
         return  # silently skip if SMTP not configured in dev
-    with smtplib.SMTP(host, port) as s:
-        if use_tls:
+        
+    with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT) as s:
+        if settings.SMTP_TLS:
             s.starttls()
-        s.login(user, pwd)
+        s.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
         s.send_message(msg)
 
 # Schemas
@@ -95,8 +93,7 @@ async def reset_password(payload: ResetPasswordIn, db: AsyncSession = Depends(ge
 @account.post('/2fa/setup', response_model=Setup2FAOut)
 async def setup_2fa(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     secret = pyotp.random_base32()
-    issuer = settings.__dict__.get('TOTP_ISSUER','Stralix')
-    otpauth_url = pyotp.totp.TOTP(secret).provisioning_uri(name=current_user.email, issuer_name=issuer)
+    otpauth_url = pyotp.totp.TOTP(secret).provisioning_uri(name=current_user.email, issuer_name=settings.TOTP_ISSUER)
     current_user.twofa_secret = secret  # NOTE: encrypt at rest in production
     await db.commit()
     return Setup2FAOut(secret=secret, otpauth_url=otpauth_url)
