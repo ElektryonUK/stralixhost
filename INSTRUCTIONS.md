@@ -188,6 +188,7 @@ Detailed description of changes including:
 5. **Update documentation** - Keep all docs current with changes
 6. **Use TypeScript strictly** - Proper typing throughout
 7. **Test locally before committing** - Ensure functionality works
+8. **Always run and build in production mode** - Use production builds by default for verification (e.g., `npm run build && npm start` in frontend)
 
 ### Decision Making
 - **Performance over convenience** - Choose solutions that scale
@@ -236,7 +237,7 @@ When working on this project:
 ---
 
 **Last Updated:** October 26, 2025  
-**Version:** 1.0.0  
+**Version:** 1.1.0  
 **Status:** Active Development
 
 *This file should be updated whenever new requirements or guidelines are established.*
