@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from sqlalchemy import Enum, String, Boolean, DateTime, text, ForeignKey, JSON
 from sqlalchemy.dialects.postgresql import UUID, INET, ARRAY
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 from app.db.base import Base
 import enum
 import uuid
@@ -77,6 +77,6 @@ class SecurityAuditLog(Base):
     ip_address: Mapped[str | None] = mapped_column(INET)
     user_agent: Mapped[str | None] = mapped_column(String)
     request_id: Mapped[str | None] = mapped_column(String(100))
-    metadata: Mapped[dict | None] = mapped_column(JSON)
+    metadata_: Mapped[dict | None] = mapped_column("metadata", JSON)
     severity: Mapped[str] = mapped_column(String(20), default="info")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
