@@ -1,23 +1,4 @@
-:root {
-  --bg: #0b0f17;
-  --panel: #0f1522;
-  --text: #e6e8f0;
-  --muted: #9aa3b2;
-  --line: #1b2231;
-  --accent: #7c3aed; /* electric purple */
-  --accent-2: #22d3ee; /* neon blue */
-  --glow-a: #6d28d9;
-  --glow-b: #22d3ee;
-}
-
-body {
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
-              radial-gradient(1000px 500px at 110% 10%, rgba(34,211,238,.2), transparent 60%),
-              var(--bg);
-  color: var(--text);
-}
-
-main { min-height: 100vh; }
+/* Page-scoped styles for the home page */
 
 /* Layout helpers */
 .container { max-width: 1120px; margin: 0 auto; padding: 0 1.25rem; }
