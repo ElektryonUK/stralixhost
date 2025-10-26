@@ -2,20 +2,17 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from pydantic import BaseModel, EmailStr, constr
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from passlib.context import CryptContext
 import secrets
 import pyotp
 
 from app.core.config import settings
+from app.db.database import get_db
 from app.db.models import User, UserStatus, UserRole, UserSession
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Create async engine - asyncpg driver is automatically detected from URL scheme
-engine = create_async_engine(settings.DATABASE_URL, echo=False, future=True)
-SessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 auth = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -38,10 +35,6 @@ class MeOut(BaseModel):
   first_name: Optional[str] = None
   last_name: Optional[str] = None
   email_verified: bool
-
-async def get_db():
-  async with SessionLocal() as session:
-    yield session
 
 # Helpers
 def hash_password(password: str) -> str:
