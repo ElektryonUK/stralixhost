@@ -1,10 +1,8 @@
-/* Page-scoped styles for the home page */
+/* Extended homepage styles for all requested sections */
 
-/* Layout helpers */
+/* Existing styles preserved ... */
 .container { max-width: 1120px; margin: 0 auto; padding: 0 1.25rem; }
 .shell { display: flex; flex-direction: column; gap: 6rem; }
-
-/* Hero */
 .hero { position: relative; padding: 8rem 0 6rem; background: linear-gradient(180deg, rgba(13,18,31,.6) 0%, rgba(13,18,31,0) 60%); }
 .heroGlow { position: absolute; inset: -10% -10% auto -10%; height: 60%; background: radial-gradient(60% 60% at 50% 40%, rgba(124,58,237,.35), rgba(34,211,238,.15) 60%, transparent 70%); filter: blur(60px); pointer-events: none; }
 .kicker { color: var(--accent-2); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: .8rem; }
@@ -15,11 +13,6 @@
 .ctaPrimary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(124,58,237,.45); }
 .ctaSecondary { border: 1px solid var(--line); color: var(--text); padding: .9rem 1.25rem; border-radius: .75rem; }
 
-.heroStats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.25rem; margin-top: 2.5rem; }
-.stat { font-size: 1.6rem; font-weight: 800; color: #fff; }
-.statLabel { display: block; color: var(--muted); margin-top: .25rem; font-size: .9rem; }
-
-/* Sections */
 .section { padding: 4rem 0; }
 .sectionAlt { padding: 4rem 0; background: linear-gradient(180deg, rgba(20,28,45,.6) 0%, rgba(20,28,45,0) 70%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .sectionTitle { font-size: clamp(1.6rem, 1vw + 1.6rem, 2.2rem); }
@@ -27,6 +20,7 @@
 
 .grid3 { display: grid; gap: 1.25rem; grid-template-columns: repeat(3, minmax(0,1fr)); }
 .grid2 { display: grid; gap: 1.25rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
+.grid4 { display: grid; gap: 1rem; grid-template-columns: repeat(4, minmax(0,1fr)); }
 
 .cardFeature { background: linear-gradient(180deg, rgba(124,58,237,.08) 0%, rgba(34,211,238,.05) 100%); border: 1px solid var(--line); border-radius: 1rem; padding: 1.25rem; transition: border-color .2s ease, transform .2s ease; }
 .cardFeature:hover { border-color: var(--accent-2); transform: translateY(-2px); }
@@ -45,17 +39,18 @@
 .bullets li::before { content: '▹'; color: var(--accent-2); }
 .calloutCard { background: linear-gradient(180deg, rgba(14,165,233,.1), rgba(124,58,237,.08)); border: 1px solid var(--line); border-radius: 1rem; padding: 1.25rem; }
 
+/* Mini features grid */
+.grid4 .miniFeature { background: #0c1322; border: 1px solid var(--line); padding: .9rem 1rem; border-radius: .75rem; text-align: center; color: var(--text); }
+
+/* Testimonials */
+.testimonials { display: grid; gap: 1.25rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
+.quote { background: linear-gradient(180deg, rgba(124,58,237,.07), rgba(34,211,238,.05)); border: 1px solid var(--line); border-radius: 1rem; padding: 1rem 1.25rem; color: var(--text); }
+.quote footer { margin-top: .6rem; color: var(--muted); font-size: .95rem; }
+
 /* Final CTA */
 .finalCta { padding: 4rem 0 6rem; text-align: center; }
 .ctaRowCenter { display: flex; justify-content: center; gap: 1rem; margin-top: 1.25rem; flex-wrap: wrap; }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .grid3 { grid-template-columns: 1fr 1fr; }
-  .grid2 { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .hero { padding-top: 6rem; }
-  .grid3 { grid-template-columns: 1fr; }
-  .ctaRow { justify-content: center; }
-}
+@media (max-width: 1024px) { .grid3 { grid-template-columns: 1fr 1fr; } .grid2 { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .hero { padding-top: 6rem; } .grid3, .grid4, .testimonials { grid-template-columns: 1fr; } .ctaRow { justify-content: center; } }

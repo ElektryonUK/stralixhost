@@ -8,54 +8,25 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.heroGlow} />
         <div className={styles.container}>
-          <p className={styles.kicker}>Cloud built for scale</p>
-          <h1 className={styles.title}>Deploy lightning‑fast, stay infinitely scalable.</h1>
-          <p className={styles.subtitle}>
-            Web hosting, VPS, game servers, domains, and SSL — engineered for speed, security, and reliability.
-          </p>
+          <p className={styles.kicker}>Hosting built for speed</p>
+          <h1 className={styles.title}>Deploy in seconds. Scale without limits.</h1>
+          <p className={styles.subtitle}>Web hosting, VPS, and game servers with instant setup, low latency, and global locations.</p>
           <div className={styles.ctaRow}>
-            <Link href="#get-started" className={styles.ctaPrimary}>Get Started</Link>
+            <Link href="#get-started" className={styles.ctaPrimary}>Deploy in Seconds</Link>
             <Link href="#pricing" className={styles.ctaSecondary}>View Pricing</Link>
           </div>
-          <div className={styles.heroStats}>
-            <div>
-              <span className={styles.stat}>99.99%</span>
-              <span className={styles.statLabel}>Uptime SLA</span>
-            </div>
-            <div>
-              <span className={styles.stat}>&lt;50ms</span>
-              <span className={styles.statLabel}>Global latency</span>
-            </div>
-            <div>
-              <span className={styles.stat}>24/7</span>
-              <span className={styles.statLabel}>Expert support</span>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className={styles.section} id="features">
+      {/* Core Offerings */}
+      <section className={styles.section} id="offerings">
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Built for modern workloads</h2>
-          <p className={styles.sectionSubtitle}>Fast. Secure. Scalable. Everything you need to ship with confidence.</p>
-          <div className={styles.grid3}>
-            <FeatureCard icon="⚡" title="Fast" desc="NVMe storage, edge CDN, and global Anycast network for sub‑50ms responses." />
-            <FeatureCard icon="🛡️" title="Secure" desc="DDoS protection, auto‑patching, managed firewalls, and free SSL on every plan." />
-            <FeatureCard icon="📈" title="Scalable" desc="From hobby projects to planet‑scale apps with autoscaling and zero‑downtime deploys." />
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing teaser */}
-      <section className={styles.section} id="pricing">
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Transparent pricing</h2>
-          <p className={styles.sectionSubtitle}>Simple tiers that grow with you. No surprise bills.</p>
-          <div className={styles.grid3}>
-            <PriceCard tier="Starter" price="$5/mo" features={["1 project", "Shared CPU", "Free SSL", "Basic support"]} />
-            <PriceCard tier="Pro" price="$20/mo" highlight features={["Unlimited projects", "Dedicated vCPU", "Global CDN", "Priority support"]} />
-            <PriceCard tier="Scale" price="Custom" features={["Clusters", "Autoscaling", "Private networking", "SLA & SSO"]} />
+          <h2 className={styles.sectionTitle}>Everything you need</h2>
+          <p className={styles.sectionSubtitle}>Powerful infrastructure for builders and teams.</p>
+          <div className={styles.grid3}> 
+            <OfferingCard title="Web Hosting" desc="Fast, secure, and simple hosting for websites and apps." />
+            <OfferingCard title="VPS Hosting" desc="Dedicated resources with full root access and NVMe performance." />
+            <OfferingCard title="Game Servers" desc="Low‑latency servers with DDoS protection and instant setup." />
           </div>
         </div>
       </section>
@@ -64,17 +35,59 @@ export default function HomePage() {
       <section className={styles.sectionAlt} id="why">
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Why Stralix</h2>
-          <div className={styles.grid2}> 
-            <ul className={styles.bullets}>
-              <li><span>Global edge network with smart routing</span></li>
-              <li><span>One‑click SSL, domains, and zero‑downtime deploys</span></li>
-              <li><span>Developer‑first: APIs, logs, metrics, and CLI</span></li>
-              <li><span>Battle‑tested reliability and security by default</span></li>
-            </ul>
-            <div className={styles.calloutCard}>
-              <h3>Bring your stack.</h3>
-              <p>Next.js, Node, containers, game servers — if it builds, it ships. Connect your repo and go live.</p>
-            </div>
+          <ul className={styles.bullets6}>
+            <li><span>Low latency worldwide</span></li>
+            <li><span>Free DDoS protection</span></li>
+            <li><span>Instant setup</span></li>
+            <li><span>Global locations</span></li>
+            <li><span>99.9% uptime SLA</span></li>
+            <li><span>24/7 expert support</span></li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Pricing Preview */}
+      <section className={styles.section} id="pricing">
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Simple, transparent pricing</h2>
+          <p className={styles.sectionSubtitle}>Fair plans that scale with you. No surprise bills.</p>
+          <div className={styles.grid3}>
+            <PriceCard tier="Web Starter" price="$3.99/mo" features={["1 website", "Free SSL", "10GB SSD", "Basic support"]} />
+            <PriceCard tier="VPS Pro" price="$12.99/mo" highlight features={["2 vCPU", "4GB RAM", "80GB NVMe", "Root access"]} />
+            <PriceCard tier="Game Prime" price="$9.99/mo" features={["DDoS protected", "Low latency", "Instant deploy", "Mod support"]} />
+          </div>
+          <div className={styles.ctaRowCenter}>
+            <Link href="#" className={styles.ctaPrimary}>See full plans</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Highlights */}
+      <section className={styles.sectionAlt} id="highlights">
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Highlights</h2>
+          <div className={styles.grid4}>
+            <MiniFeature label="99.9% uptime" />
+            <MiniFeature label="SSD NVMe storage" />
+            <MiniFeature label="24/7 support" />
+            <MiniFeature label="Full root access" />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Trust */}
+      <section className={styles.section} id="trust">
+        <div className={styles.container}>
+          <h2 className={styles.sectionTitle}>Trusted by builders</h2>
+          <div className={styles.testimonials}>
+            <blockquote className={styles.quote}>
+              “Latency dropped by 40% after moving to Stralix. Deployment literally took minutes.”
+              <footer>— Alex R., Indie Dev</footer>
+            </blockquote>
+            <blockquote className={styles.quote}>
+              “Rock‑solid uptime and responsive support. Exactly what our community servers needed.”
+              <footer>— Mira K., Guild Admin</footer>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -82,10 +95,9 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className={styles.finalCta} id="get-started">
         <div className={styles.container}>
-          <h2>Launch in minutes.</h2>
-          <p>Start free, scale on demand, and pay only for what you use.</p>
+          <h2>Get your server online in under 60 seconds</h2>
           <div className={styles.ctaRowCenter}>
-            <Link href="#" className={styles.ctaPrimary}>Create account</Link>
+            <Link href="#" className={styles.ctaPrimary}>Get Started</Link>
             <Link href="#" className={styles.ctaSecondary}>Talk to sales</Link>
           </div>
         </div>
@@ -94,10 +106,9 @@ export default function HomePage() {
   )
 }
 
-function FeatureCard({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function OfferingCard({ title, desc }: { title: string; desc: string }) {
   return (
     <div className={styles.cardFeature}>
-      <div className={styles.featureIcon}>{icon}</div>
       <h3>{title}</h3>
       <p>{desc}</p>
     </div>
@@ -118,5 +129,11 @@ function PriceCard({ tier, price, features, highlight }: { tier: string; price: 
       </ul>
       <button className={styles.ctaSmall}>Choose {tier}</button>
     </div>
+  )
+}
+
+function MiniFeature({ label }: { label: string }) {
+  return (
+    <div className={styles.miniFeature}>{label}</div>
   )
 }
