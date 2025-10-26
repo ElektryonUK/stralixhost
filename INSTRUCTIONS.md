@@ -18,10 +18,11 @@ This file contains the comprehensive instructions and requirements for developin
 - Auth pages: login, register, verify email, forgot/reset password, account security (2FA).
 
 ### 3. BACKEND REQUIREMENTS
-- FastAPI with JWT/session auth, bcrypt (or Argon2), TOTP 2FA, email verification, password reset.
+- FastAPI with session/Bearer auth, bcrypt (or Argon2), TOTP 2FA, email verification, password reset.
 - Role-based access control: customer, staff, admin.
 - Security logging: login failures, password resets, role/status changes, 2FA events.
 - Rate limiting on auth endpoints via middleware or Nginx/proxy.
+- SQLAlchemy modern best practices: Always wrap raw SQL in `text()` from `sqlalchemy` to avoid errors and ensure compatibility.
 
 ### 4. DATABASE & MIGRATIONS
 - PostgreSQL on an external server.
@@ -44,11 +45,12 @@ This file contains the comprehensive instructions and requirements for developin
 1. NEVER use Tailwind CSS — only custom CSS.
 2. Always create a new migration for DB changes — never modify existing migrations.
 3. Follow conventional commits with detailed descriptions.
-4. Push all changes to GitHub immediately; keep the remote the source of truth.
-5. Update documentation and backend/.env.example when adding configs or features.
+4. Push all changes to GitHub immediately; the remote is the source of truth.
+5. Update documentation and `backend/.env.example` when adding configs or features.
 6. Use strong hashing (bcrypt/Argon2) for passwords; store TOTP secrets encrypted; rotate tokens.
 7. Enforce production-only runs and builds.
 8. Use `scripts/db_migrate.sh` to keep DB in sync with code.
+9. Wrap any raw SQL in `text()` when using SQLAlchemy.
 
 ## CHECKLIST FOR SECURITY
 - Input validation (Pydantic), server-side checks.
@@ -65,5 +67,5 @@ This file contains the comprehensive instructions and requirements for developin
 ---
 
 **Last Updated:** October 26, 2025  
-**Version:** 1.4.0  
+**Version:** 1.5.0  
 **Status:** Active Development
