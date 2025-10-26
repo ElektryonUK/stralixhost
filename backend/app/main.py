@@ -1,9 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers.auth import auth
+from app.routers.users import me_router
 from app.core.config import settings
+from app.middleware.request_id import RequestIDMiddleware
 
-app = FastAPI(title="Stralix API", version="0.2.0")
+app = FastAPI(title="Stralix API", version="0.3.0")
+
+app.add_middleware(RequestIDMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,6 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(auth, prefix="/api")
+app.include_router(me_router, prefix="/api")
 
 @app.get("/health")
 async def health():
