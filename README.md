@@ -1,5 +1,15 @@
 # Stralixhost
 
+## Technologies
+
+- Next.js 14 (App Router)
+- React 18
+- TypeScript 5
+- Custom CSS (no Tailwind)
+- ESLint (Next core-web-vitals, TS rules)
+- PostgreSQL (schema + migrations)
+- PM2 (production process manager)
+
 A full-stack web application built as a monorepo with modern development practices.
 
 ## Project Structure
@@ -67,5 +77,7 @@ stralixhost/
 Please read our contributing guidelines and follow the established code style and commit conventions.
 
 ## License
+
+license: proprietary
 
 This project is proprietary. All rights reserved.
