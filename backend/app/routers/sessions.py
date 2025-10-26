@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 import secrets
 
 from app.core.config import settings
-from app.core.security import get_db
+from app.db.database import get_db
 from app.db.models import UserSession
 
 COOKIE_SESSION = "sx_s"
