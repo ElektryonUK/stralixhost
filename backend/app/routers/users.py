@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-from app.core.security import get_current_user, get_db
+from app.core.security import get_current_user
 from app.db.models import User, UserRole, UserStatus
 
 me_router = APIRouter(prefix="/users", tags=["users"])
