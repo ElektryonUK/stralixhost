@@ -41,6 +41,15 @@ This file contains the comprehensive instructions and requirements for developin
 - Backend launcher: `./launch_backend.sh [start|stop|restart|status|logs]` sets up venv, installs deps, and runs uvicorn under PM2.
 - Configure Nginx to proxy `/` to Next.js and `/api/` to FastAPI.
 
+### 7. API DOCUMENTATION
+- Maintain comprehensive API documentation in `docs/API.md`.
+- Update documentation immediately when adding, modifying, or removing API endpoints.
+- Include request/response examples, error codes, authentication requirements, and validation rules.
+- Document all query parameters, request body schemas, and response formats.
+- Keep endpoint status (implemented, placeholder, deprecated) clearly marked.
+- Update version number and last modified date when making changes.
+- Follow the established format: endpoint method, path, description, request/response examples, error handling.
+
 ## CRITICAL RULES
 1. NEVER use Tailwind CSS — only custom CSS.
 2. Always create a new migration for DB changes — never modify existing migrations.
@@ -51,6 +60,7 @@ This file contains the comprehensive instructions and requirements for developin
 7. Enforce production-only runs and builds.
 8. Use `scripts/db_migrate.sh` to keep DB in sync with code.
 9. Wrap any raw SQL in `text()` when using SQLAlchemy.
+10. **Update `docs/API.md` whenever API endpoints are added, modified, or removed.**
 
 ## CHECKLIST FOR SECURITY
 - Input validation (Pydantic), server-side checks.
@@ -63,9 +73,22 @@ This file contains the comprehensive instructions and requirements for developin
 ## COMMUNICATION & DOCS
 - Document any new environment variables in `backend/.env.example` and note usage in code comments.
 - Update this INSTRUCTIONS file when adding new security or deployment requirements.
+- Maintain API documentation in `docs/API.md` with current endpoint information and examples.
+
+## API DOCUMENTATION STANDARDS
+
+When adding or modifying API endpoints:
+
+1. **Immediate Documentation**: Update `docs/API.md` in the same commit as the endpoint changes.
+2. **Complete Information**: Include method, path, description, authentication requirements, request body schema, response examples, and error codes.
+3. **Status Indicators**: Mark endpoints as "implemented", "placeholder", or "deprecated".
+4. **Version Control**: Update the version and last modified date in the documentation.
+5. **Security Notes**: Document authentication, authorization, and rate limiting requirements.
+6. **Examples**: Provide realistic request/response examples with proper JSON formatting.
+7. **Error Handling**: Document all possible HTTP status codes and error response formats.
 
 ---
 
 **Last Updated:** October 26, 2025  
-**Version:** 1.5.0  
+**Version:** 1.6.0  
 **Status:** Active Development
