@@ -1,10 +1,7 @@
-.header{position:sticky;top:0;z-index:50;background:rgba(10,14,23,.6);backdrop-filter:blur(10px);border-bottom:1px solid #151b2a}
-.container{max-width:1120px;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
-.logoDot{width:10px;height:10px;border-radius:50%;background:linear-gradient(90deg,#7c3aed,#22d3ee);box-shadow:0 0 14px #7c3aed}
-.brandText{font-weight:800;letter-spacing:.02em;color:#eaf2ff}
-.nav{flex:1;display:flex;justify-content:center}
-.navPlaceholder{height:36px}
-.actions{display:flex;gap:.6rem}
-.actionGhost{border:1px solid #1b2231;color:#e6e8f0;padding:.55rem .9rem;border-radius:.6rem;text-decoration:none}
-.actionPrimary{background:linear-gradient(90deg,#7c3aed,#22d3ee);color:#0b1020;padding:.55rem .9rem;border-radius:.6rem;text-decoration:none;font-weight:700}
+/* Auth-aware header additions */
+.userMenu{position:relative;display:flex;align-items:center;gap:.6rem}
+.avatar{width:32px;height:32px;border-radius:9999px;background:linear-gradient(90deg,#7c3aed,#22d3ee);display:flex;align-items:center;justify-content:center;color:#0b1020;font-weight:800}
+.dropdown{position:absolute;right:0;top:42px;display:flex;flex-direction:column;gap:.4rem;background:#0c1322;border:1px solid #1b2231;border-radius:.6rem;padding:.6rem .8rem;min-width:160px;box-shadow:0 10px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .15s ease}
+.userMenu:hover .dropdown{opacity:1;pointer-events:auto}
+.dropdown a,.dropdown button{color:#e6e8f0;text-decoration:none;background:none;border:none;text-align:left;padding:.3rem .2rem}
+.dropdown a:hover,.dropdown button:hover{color:#fff}
