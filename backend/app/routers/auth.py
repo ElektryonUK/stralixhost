@@ -7,13 +7,15 @@ from sqlalchemy import select
 from passlib.context import CryptContext
 import secrets
 import pyotp
+import asyncpg  # ensure async driver is present
 
 from app.core.config import settings
 from app.db.models import User, UserStatus, UserRole, UserSession
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-engine = create_async_engine(settings.DATABASE_URL, echo=False, future=True)
+# Force asyncpg driver by ensuring URL is async and module available
+engine = create_async_engine(settings.DATABASE_URL, echo=False, future=True, module=asyncpg)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 auth = APIRouter(prefix="/auth", tags=["auth"])
