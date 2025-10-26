@@ -10,7 +10,11 @@ set -euo pipefail
 MIGRATIONS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)/database/migrations"
 SCHEMA_TABLE="schema_migrations"
 
-# Load DATABASE_URL from env if present
+# Load DATABASE_URL from backend/.env if exists
+if [ -f "$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && cd ../backend && pwd)/.env" ]; then
+  export $(grep '^DATABASE_URL=' "$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && cd ../backend && pwd)/.env" | xargs)
+fi
+
 : "${DATABASE_URL:?DATABASE_URL env variable is required, e.g. postgresql://user:pass@host:5432/db}"
 
 PSQL="psql ${DATABASE_URL} -v ON_ERROR_STOP=1"
