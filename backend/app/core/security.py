@@ -5,14 +5,10 @@ from sqlalchemy import select, update
 from datetime import datetime, timezone
 from typing import Optional
 
-from app.routers.auth import SessionLocal
+from app.db.database import get_db
 from app.db.models import User, UserSession
 
 bearer_scheme = HTTPBearer(auto_error=False)
-
-async def get_db():
-    async with SessionLocal() as session:
-        yield session
 
 async def get_current_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
