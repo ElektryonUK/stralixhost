@@ -1,13 +1,16 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Stralix • Cloud Hosting for Builders',
-  description: 'Premium web hosting, VPS, game servers, domains, and SSL — fast, secure, and scalable.',
-  themeColor: '#0ea5e9',
+  title: 'Stralix • Premium Hosting for Builders',
+  description: 'Web hosting, VPS, game servers, domains, and SSL — fast, secure, and scalable.',
   icons: { icon: '/icons/favicon.ico' },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0ea5e9',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
