@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.pool import NullPool
-from sqlalchemy import __version__ as sqlalchemy_version
+from sqlalchemy import __version__ as sqlalchemy_version, text
 from app.core.config import settings
 import logging
 import asyncio
@@ -54,7 +54,7 @@ async def test_connection():
     """Test the database connection to ensure asyncpg is working."""
     try:
         async with engine.begin() as conn:
-            result = await conn.execute("SELECT 1 as test")
+            result = await conn.execute(text("SELECT 1 as test"))
             test_value = result.scalar()
             if test_value == 1:
                 logger.info("Database connection test successful with asyncpg")
