@@ -106,6 +106,10 @@ Detailed description of changes including:
 - **Code comments** - Complex logic explanation
 - **API documentation** - When backend is implemented
 
+Additionally:
+- **README technology banner** - Always keep a "Technologies" section at the very top of README listing all currently used tools/libraries. Update it whenever a new technology is introduced.
+- **License tag** - README must include `license: proprietary` in the License section.
+
 ### 6. BEST PRACTICES TO FOLLOW
 
 #### File Organization
@@ -189,6 +193,8 @@ Detailed description of changes including:
 6. **Use TypeScript strictly** - Proper typing throughout
 7. **Test locally before committing** - Ensure functionality works
 8. **Always run and build in production mode** - Use production builds by default for verification (e.g., `npm run build && npm start` in frontend)
+9. **README technology banner** - Keep technologies section current at the top of README; update on every new tool/library addition.
+10. **License tag** - Ensure README contains `license: proprietary` in License section.
 
 ### Decision Making
 - **Performance over convenience** - Choose solutions that scale
@@ -237,7 +243,7 @@ When working on this project:
 ---
 
 **Last Updated:** October 26, 2025  
-**Version:** 1.1.0  
+**Version:** 1.2.0  
 **Status:** Active Development
 
 *This file should be updated whenever new requirements or guidelines are established.*
