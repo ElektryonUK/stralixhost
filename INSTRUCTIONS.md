@@ -4,246 +4,66 @@ This file contains the comprehensive instructions and requirements for developin
 
 ## PROJECT OVERVIEW
 
-**Stralixhost** is a monorepo for a huge full-stack web application project. This is the foundational setup phase with plans for significant expansion.
+**Stralixhost** is a monorepo for a full-stack hosting platform (web hosting, VPS, game servers, domains, SSL). This phase focuses on secure user management, hardened APIs, and production-grade deployments.
 
 ## CORE REQUIREMENTS
 
 ### 1. REPOSITORY STRUCTURE
-- **Monorepo architecture** - All components in a single repository
-- **Modular organization** - Clear separation between frontend, backend, database, shared utilities
-- **Professional structure** - Enterprise-level organization and practices
+- **Monorepo architecture** with clear separation between frontend, backend, database, scripts, and docs.
+- **Security-first** design: never commit secrets, follow the env template, enforce CI checks.
 
 ### 2. FRONTEND REQUIREMENTS
+- **Next.js (App Router)** with TypeScript, CSS Modules (no Tailwind).
+- **Auth-aware header**: shows Login/Register for guests; shows user avatar/name with account/logout for authenticated users.
+- **Auth pages**: login, register, verify email, forgot/reset password, account security (2FA).
 
-#### Technology Stack
-- **Next.js** - Latest version (14+) with App Router
-- **TypeScript** - Strict typing throughout
-- **NO TAILWIND CSS** - Must use custom CSS only
-- **React** - Latest stable version
-- **Custom styling** - CSS Modules and custom CSS with variables
+### 3. BACKEND REQUIREMENTS
+- **FastAPI** with JWT/session auth, bcrypt (or Argon2), TOTP 2FA, email verification, password reset.
+- **Role-based access control**: customer, staff, admin.
+- **Security logging**: login failures, password resets, role/status changes, 2FA events.
+- **Rate limiting** on auth endpoints via middleware or Nginx/proxy.
 
-#### Frontend Structure
-```
-frontend/
-├── app/                 # Next.js App Router
-├── components/          # Reusable components
-├── styles/              # Custom CSS files
-├── public/              # Static assets
-└── package.json         # Dependencies
-```
+### 4. DATABASE & MIGRATIONS
+- PostgreSQL on an external server.
+- Use migration files under `database/migrations/` with incremental numeric versions (e.g., `001_`, `002_`).
+- A migration runner script is provided: `scripts/db_migrate.sh` (psql-based). Use `DATABASE_URL` env.
+- Always update the main schema and write a new migration for any structural change.
 
-#### Styling Guidelines
-- **Custom CSS only** - No CSS frameworks (Tailwind, Bootstrap, etc.)
-- **CSS Modules** for component-specific styles
-- **CSS Variables** for theming and consistency
-- **Responsive design** - Mobile-first approach
-- **Professional UI** - Clean, modern design patterns
+### 5. ENVIRONMENT CONFIGURATION
+- Maintain `backend/.env.example` with all required keys. Update it whenever new constants are introduced.
+- Use strong, unique secrets in production; never commit real secrets.
+- Critical vars: `DATABASE_URL`, `SECRET_KEY`, SMTP for emails, CORS origins, token expirations.
 
-### 3. DATABASE REQUIREMENTS
+### 6. DEPLOYMENT
+- Production builds only.
+- Use PM2 to manage both frontend and backend.
+- Backend launcher: `./launch_backend.sh [start|stop|restart|status|logs]` sets up venv, installs deps, and runs uvicorn under PM2.
+- Configure Nginx to proxy `/` to Next.js and `/api/` to FastAPI.
 
-#### Database System
-- **PostgreSQL** - Primary database
-- **UUID primary keys** - Use uuid-ossp extension
-- **Migration system** - Version-controlled schema changes
+## CRITICAL RULES
+1. **NEVER use Tailwind CSS** — only custom CSS.
+2. **Always create a new migration** for DB changes — never modify existing migrations.
+3. **Follow conventional commits** with detailed descriptions.
+4. **Push all changes to Git** and keep docs updated.
+5. **Use strong hashing** (bcrypt/Argon2) for passwords; store TOTP secrets encrypted; rotate tokens.
+6. **Enforce production**: build and run in production mode.
+7. **Update backend/.env.example** whenever a new config is added (hard requirement).
+8. **Use scripts/db_migrate.sh** to keep DB in sync with code.
 
-#### Database Structure
-```
-database/
-├── schema.sql           # Current complete schema
-└── migrations/          # Incremental migration files
-    ├── 001_initial_schema.sql
-    ├── 002_next_migration.sql
-    └── ...
-```
+## CHECKLIST FOR SECURITY
+- Input validation (Pydantic), server-side checks.
+- Prepared statements/ORM (SQLAlchemy).
+- Secure cookies (HttpOnly, Secure, SameSite) or Bearer tokens with short TTL + refresh rotation.
+- Rate-limit login, password reset, and verification endpoints.
+- Log auth/security events to `security_audit_log`.
+- Password policy (length/entropy), throttle failed attempts, lockouts.
 
-#### Migration Rules
-- **Sequential numbering** - 001, 002, 003, etc.
-- **Descriptive names** - Clear purpose in filename
-- **Up/Down migrations** - Include rollback capability
-- **Schema tracking** - Update main schema.sql after each migration
-- **New migration for every DB change** - Never modify existing migrations
-
-### 4. DEVELOPMENT PRACTICES
-
-#### Git Workflow
-- **All changes pushed to Git** - Every modification committed
-- **Conventional commits** - Structured commit messages
-- **Proper commit descriptions** - Detailed explanations of changes
-
-#### Commit Message Format
-```
-type(scope): brief description
-
-Detailed description of changes including:
-- What was changed
-- Why it was changed
-- Any breaking changes
-- Additional context
-```
-
-**Commit Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Code formatting
-- `refactor`: Code restructuring
-- `test`: Testing changes
-- `chore`: Maintenance
-
-#### Code Quality
-- **TypeScript strict mode** - No any types without justification
-- **ESLint configuration** - Code quality enforcement
-- **Consistent formatting** - Follow established patterns
-- **Error handling** - Proper error boundaries and user feedback
-- **Loading states** - User experience during async operations
-
-### 5. PROJECT DOCUMENTATION
-
-#### Required Documentation
-- **README.md** - Project overview and quick start
-- **PROJECT_STRUCTURE.md** - Detailed architecture documentation
-- **INSTRUCTIONS.md** - This file for AI assistants
-- **Code comments** - Complex logic explanation
-- **API documentation** - When backend is implemented
-
-Additionally:
-- **README technology banner** - Always keep a "Technologies" section at the very top of README listing all currently used tools/libraries. Update it whenever a new technology is introduced.
-- **License tag** - README must include `license: proprietary` in the License section.
-
-### 6. BEST PRACTICES TO FOLLOW
-
-#### File Organization
-- **Clear naming conventions** - Descriptive, consistent names
-- **Logical grouping** - Related files together
-- **Proper imports** - Relative paths and barrel exports where appropriate
-
-#### Component Development
-- **Functional components** with hooks
-- **TypeScript interfaces** for all props
-- **CSS Modules** for styling
-- **Accessibility** - Proper ARIA labels and semantic HTML
-- **Performance** - Optimize for loading and runtime
-
-#### Database Design
-- **Normalized structure** - Avoid data duplication
-- **Proper indexing** - Performance optimization
-- **Foreign key constraints** - Data integrity
-- **Audit trails** - created_at, updated_at fields
-- **Soft deletes** - When appropriate
-
-## CURRENT PROJECT STATE
-
-### Completed Components
-✅ GitHub repository created  
-✅ README.md with project overview  
-✅ Database schema with users and sessions  
-✅ Migration system implemented  
-✅ Next.js frontend application setup  
-✅ Basic page structure and routing  
-✅ Custom CSS styling system  
-✅ Error handling and loading states  
-✅ TypeScript configuration  
-✅ ESLint setup  
-✅ Project documentation  
-
-### Immediate Next Steps
-- [ ] Implement backend API server
-- [ ] Add authentication system
-- [ ] Create shared utilities package
-- [ ] Implement user registration/login
-- [ ] Add database connection layer
-- [ ] Create API client for frontend
-- [ ] Add testing framework
-- [ ] Set up CI/CD pipeline
-
-### Long-term Roadmap
-- [ ] User management system
-- [ ] Role-based access control
-- [ ] Email system integration
-- [ ] File upload functionality
-- [ ] Search capabilities
-- [ ] Analytics implementation
-- [ ] Performance monitoring
-- [ ] Security hardening
-
-## DEVELOPMENT ENVIRONMENT
-
-### Required Tools
-- **Node.js** 18+ (for frontend)
-- **PostgreSQL** 14+ (for database)
-- **Git** (version control)
-- **VS Code** (recommended editor)
-
-### Environment Setup
-1. Clone repository
-2. Install frontend dependencies (`cd frontend && npm install`)
-3. Set up PostgreSQL database
-4. Run database migrations
-5. Configure environment variables
-6. Start development server
-
-## CRITICAL RULES FOR AI ASSISTANTS
-
-### Absolute Requirements
-1. **NEVER use Tailwind CSS** - Only custom CSS allowed
-2. **Always create database migrations** - Never modify existing ones
-3. **Follow conventional commits** - Proper format and descriptions
-4. **Push all changes to Git** - Every modification must be committed
-5. **Update documentation** - Keep all docs current with changes
-6. **Use TypeScript strictly** - Proper typing throughout
-7. **Test locally before committing** - Ensure functionality works
-8. **Always run and build in production mode** - Use production builds by default for verification (e.g., `npm run build && npm start` in frontend)
-9. **README technology banner** - Keep technologies section current at the top of README; update on every new tool/library addition.
-10. **License tag** - Ensure README contains `license: proprietary` in License section.
-
-### Decision Making
-- **Performance over convenience** - Choose solutions that scale
-- **Security first** - Always consider security implications
-- **User experience** - Prioritize intuitive, accessible interfaces
-- **Code maintainability** - Write code that others can understand and modify
-- **Future-proofing** - Consider scalability and extensibility
-
-### When in Doubt
-- **Follow existing patterns** - Consistency with current codebase
-- **Ask for clarification** - Don't assume requirements
-- **Document decisions** - Explain why choices were made
-- **Test thoroughly** - Verify all functionality works
-
-## TECHNOLOGY PREFERENCES
-
-### Frontend
-- **Next.js 14+** with App Router
-- **TypeScript** for type safety
-- **Custom CSS** with CSS Modules
-- **React hooks** for state management
-- **Native fetch** or Axios for API calls
-
-### Backend (When Implemented)
-- **Node.js** with Express or Fastify
-- **TypeScript** throughout
-- **PostgreSQL** with connection pooling
-- **JWT** for authentication
-- **bcrypt** for password hashing
-
-### DevOps (Future)
-- **Docker** for containerization
-- **GitHub Actions** for CI/CD
-- **Vercel/Netlify** for frontend deployment
-- **Cloud PostgreSQL** for production database
-
-## COMMUNICATION GUIDELINES
-
-When working on this project:
-1. **Explain all changes** made in commit messages
-2. **Document new patterns** introduced
-3. **Update relevant documentation** files
-4. **Mention any breaking changes**
-5. **Provide setup instructions** for new features
+## COMMUNICATION & DOCS
+- Document any new environment variables in `backend/.env.example` and note usage in code comments.
+- Update this INSTRUCTIONS file when adding new security or deployment requirements.
 
 ---
 
 **Last Updated:** October 26, 2025  
-**Version:** 1.2.0  
+**Version:** 1.3.0  
 **Status:** Active Development
-
-*This file should be updated whenever new requirements or guidelines are established.*
