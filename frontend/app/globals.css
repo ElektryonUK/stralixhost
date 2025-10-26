@@ -1,105 +1,17 @@
-/* Global styles for Stralixhost */
+/* Global base styles for contrast on dark hero backgrounds */
+html, body { margin: 0; padding: 0; }
+body { background-color: #0b1220; color: #e2e8f0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
 
-/* CSS Reset and base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* Anchor defaults */
+a { color: #cbd5e1; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-}
-
-/* Import Inter font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* CSS Custom Properties (Variables) */
-:root {
-  /* Colors */
-  --color-primary: #667eea;
-  --color-primary-dark: #764ba2;
-  --color-secondary: #f093fb;
-  --color-accent: #4facfe;
-  
-  /* Neutral colors */
-  --color-white: #ffffff;
-  --color-gray-50: #f7fafc;
-  --color-gray-100: #edf2f7;
-  --color-gray-200: #e2e8f0;
-  --color-gray-300: #cbd5e0;
-  --color-gray-400: #a0aec0;
-  --color-gray-500: #718096;
-  --color-gray-600: #4a5568;
-  --color-gray-700: #2d3748;
-  --color-gray-800: #1a202c;
-  --color-gray-900: #171923;
-  
-  /* Status colors */
-  --color-success: #48bb78;
-  --color-warning: #ed8936;
-  --color-error: #f56565;
-  --color-info: #4299e1;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  
-  /* Border radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
-  
-  /* Transitions */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Dark landing theme variables */
-  --bg: #0b0f17;
-  --panel: #0f1522;
-  --text: #e6e8f0;
-  --muted: #9aa3b2;
-  --line: #1b2231;
-  --accent: #7c3aed; /* electric purple */
-  --accent-2: #22d3ee; /* neon blue */
-}
-
-/* Dark background for landing */
-body {
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
-              radial-gradient(1000px 500px at 110% 10%, rgba(34,211,238,.2), transparent 60%),
-              var(--bg);
-  color: var(--text);
-}
-
-main { min-height: 100vh; }
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-white: #1a202c;
-    --color-gray-50: #2d3748;
-    --color-gray-100: #4a5568;
-    --color-gray-900: #f7fafc;
-  }
-}
+/* Header utilities */
+.header-gradient { background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.0)); backdrop-filter: saturate(140%) blur(6px); position: sticky; top: 0; z-index: 50; }
+.container { max-width: 1200px; margin: 0 auto; padding: 12px 20px; }
+.flex { display: flex; align-items: center; }
+.space-between { justify-content: space-between; }
+.gap-18 { gap: 18px; }
+.btn-solid { color:#0b1220; background: linear-gradient(90deg, #7dd3fc, #a78bfa); border:none; border-radius:8px; padding:8px 14px; font-weight:600; cursor:pointer; }
+.btn-ghost { color:#dbeafe; border:1px solid rgba(148,163,184,0.3); border-radius:8px; padding:7px 13px; }
+.text-dim { color:#cbd5e1; }
